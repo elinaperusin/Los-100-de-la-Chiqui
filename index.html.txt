@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cuenta regresiva Chiqui</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ffb6d9,#ffe8f3);
+    font-family:Arial, sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+h1{
+    color:#8b004f;
+    font-size:3rem;
+    margin-bottom:20px;
+    z-index:10;
+}
+
+#contador{
+    background:white;
+    padding:25px;
+    border-radius:25px;
+    font-size:2rem;
+    box-shadow:0 0 20px rgba(0,0,0,0.2);
+    z-index:10;
+}
+
+#mensaje{
+    display:none;
+    font-size:4rem;
+    color:#ff0080;
+    animation:latido 1s infinite alternate;
+    z-index:10;
+}
+
+@keyframes latido{
+    from{
+        transform:scale(1);
+    }
+
+    to{
+        transform:scale(1.1);
+    }
+}
+
+/* CHIQUIS FLOTANDO */
+
+.chiqui{
+    position:absolute;
+    width:140px;
+    pointer-events:none;
+    opacity:0.9;
+}
+
+.chiqui1{
+    top:10%;
+    left:-200px;
+    animation:mover1 10s linear infinite;
+}
+
+.chiqui2{
+    top:40%;
+    left:-250px;
+    animation:mover2 12s linear infinite;
+}
+
+.chiqui3{
+    top:70%;
+    left:-300px;
+    animation:mover3 8s linear infinite;
+}
+
+.chiqui4{
+    top:20%;
+    left:-350px;
+    animation:mover4 14s linear infinite;
+}
+
+@keyframes mover1{
+    from{
+        transform:translateX(0) rotate(0deg);
+    }
+
+    to{
+        transform:translateX(140vw) rotate(360deg);
+    }
+}
+
+@keyframes mover2{
+    from{
+        transform:translateX(0) scale(1);
+    }
+
+    to{
+        transform:translateX(150vw) scale(1.3);
+    }
+}
+
+@keyframes mover3{
+    from{
+        transform:translateX(0) rotate(-15deg);
+    }
+
+    to{
+        transform:translateX(160vw) rotate(15deg);
+    }
+}
+
+@keyframes mover4{
+    from{
+        transform:translateX(0) scale(0.8);
+    }
+
+    to{
+        transform:translateX(170vw) scale(1.2);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🎂 Cuenta regresiva para la Chiqui 🎂</h1>
+
+<div id="contador"></div>
+
+<div id="mensaje">
+🎉 ¡Feliz cumpleaños Chiqui! 🎉
+</div>
+
+<!-- CABEZAS -->
+
+<img src="chiqui.png" class="chiqui chiqui1">
+<img src="chiqui.png" class="chiqui chiqui2">
+<img src="chiqui.png" class="chiqui chiqui3">
+<img src="chiqui.png" class="chiqui chiqui4">
+
+<script>
+
+const fechaCumple = new Date("February 23, 2027 00:00:00").getTime();
+
+const contador = document.getElementById("contador");
+const mensaje = document.getElementById("mensaje");
+
+const intervalo = setInterval(() => {
+
+    const ahora = new Date().getTime();
+
+    const distancia = fechaCumple - ahora;
+
+    const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+    contador.innerHTML = `
+        ${dias} días <br>
+        ${horas} horas <br>
+        ${minutos} minutos <br>
+        ${segundos} segundos
+    `;
+
+    if(distancia < 0){
+
+        clearInterval(intervalo);
+
+        contador.style.display = "none";
+
+        mensaje.style.display = "block";
+
+        document.body.style.background =
+        "linear-gradient(135deg,#ff69b4,#ffd700)";
+
+    }
+
+},1000);
+
+</script>
+
+</body>
+</html>
